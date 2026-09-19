@@ -1,24 +1,26 @@
 # Rootopia
 
-A game built in 48 hours for **Global Game Jam 2023** by a team of five (two artists, three programmers). You guide a plant's roots as they spread through obstacles toward the core of a planet.
+## Features
+In Rootopia, you can:
+  - Guide a growing plant's roots through a maze of obstacles toward the core of a planet
+  - At every fork, slice two of the three branches to choose which one keeps growing
+  - Race the clock — each fork only stays cuttable for a few seconds before it locks in
+  - Dodge roving enemies that can sever the "wrong" branch before you get to it
+  - Scoop up colorful minerals scattered along the way
 
-## Gameplay
+## About
+Made in one wild 48-hour sprint for **Global Game Jam 2023**, by a team of five — two artists, three programmers. I was lead programmer, building the core root-growth and slicing mechanic and its interaction with the rest of the game.
 
-At each "divide point," a root splits into three branches (`DivideScript.Divide()` spawns a left/mid/right `Root` prefab). Enemies can sever a branch — when a `Root` collides with an object tagged `"Enemy"`, it's marked `broken` and stops growing (`Root.OnTriggerEnter2D`). If two of the three branches at a divide point are broken, the run ends (`GameState.gameOver = true`, loading the game-over scene); otherwise a new divide point spawns ahead of the one surviving branch, and the cycle continues deeper toward the core.
+The whole game is basically a race: the plant's root splits into three at every fork, and it's on you to prune it down to one before time's up — all while enemies roam around trying to snip a branch for you (usually the wrong one).
 
-## Architecture
+## Controls
+- Left-click and drag across a root to slice it
+- Slice exactly two of the three roots at a fork to pick which one survives and keeps growing
+- Move fast — miss the window and the fork locks in on its own
 
-| Script | Role |
-| ------ | ---- |
-| `Root.cs` | A single root segment: growth, break state, and the cut animation/prefab spawned when severed |
-| `DivideScript.cs` | Spawns the three child root branches at a divide point and decides the next divide point's position based on which branch survived |
-| `Controller.cs` | Shared tuning constants (`timeTodivide`, a `debug` flag) |
-| `GameState.cs` | Global run state (e.g. `gameOver`) |
-| `MovingMobs.cs`, `TouchEgg.cs`, `MineralCollecter.cs`, `EggFinish.cs` | Enemy/obstacle and collectible behaviors |
-| `LevelManager.cs`, `LevelMapManagement.cs`, `ObjectiveManager.cs` | Level flow and objectives |
-| `MouseControl.cs`, `CameraMovement.cs` | Player input and camera |
-| `StartManager.cs`, `DeathScreenScript.cs`, `ButtonManager.cs`, `ButtonScaling.cs` | Menu/UI flow |
+## Installation
+- **Source Code:** Clone the repo and open it in Unity. This project was built on Unity **2022.3.21f1** — opening it in a different version may cause unpredictable behavior.
 
-## Tech Stack
-
-Unity, C#. This repo is a fork of the original team repository (`borkluce/Rootopia--Global-Game-Jam-2023-Project-`); credit for art and level design goes to the full team.
+## References
+- This is a fork of the original team repository: [borkluce/Rootopia--Global-Game-Jam-2023-Project-](https://github.com/borkluce/Rootopia--Global-Game-Jam-2023-Project-)
+- Credit for art, level design, and the rest of the game goes to the full five-person team
